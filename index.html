@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Manage Employees</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+  <section>
+    <div class="p-3 mb-2 bg-dark text-white text-center">MANAGE EMPLOYEE</div>
+    <form class="mt-5 container" id="formEmployee">
+      <div class="form-group">
+        <label for="inputCode"> <span class="required">(*)</span> Code Employee</label>
+        <input type="text" class="form-control" id="inputCode" placeholder="123..">
+      </div>
+      <span id="notiCode"></span>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="inputName"><span class="required">(*)</span> Name Employee</label>
+          <input type="text" class="form-control" id="inputName">
+        </div>
+        <span id="notiName"></span>
+        <div class="form-group col-md-12">
+          <label for="inputPosition"><span class="required">(*)</span> Position</label>
+          <select id="inputPosition" class="form-control">
+            <option selected>Choose Position</option>
+            <option>Employee</option>
+            <option>Manager</option>
+            <option>Director</option>
+          </select>
+        </div>
+        <span id="notiPosition"></span>
+        <div class="form-group col-md-12">
+          <label for="inputSalary"><span class="required">(*)</span> Basic salary</label>
+          <input type="text" class="form-control" id="inputSalary">
+        </div>
+        <span id="notiSalary"></span>
+        <div class="form-group col-md-12">
+          <label for="inputHours"><span class="required">(*)</span> Working Hours</label>
+          <input type="text" class="form-control" id="inputHours">
+        </div>
+        <span id="notiHour"></span>
+      </div>
+
+      <button type="submit" class="btn btn-outline-success float-right" id="addEmployee">Add Employee</button>
+    </form>
+    <table id="listEmployee" class="container">
+      <p class="notiTable"></p>
+      <thead>
+        <tr class="bg-primary text-white text-center">
+          <th>Code Employee</th>
+          <th>Name Employee</th>
+          <th>Position</th>
+          <th>Basic Salary</th>
+          <th>Total Salary</th>
+          <th>Working Hours/Month</th>
+          <th>Rank</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tblListEmployee">
+        <div class="loader position_center" id="loader" style="display: none;"></div>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!--Library Axios-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./js/models/employee.js"></script>
+  <script src="./js/models/validation.js"></script>
+  <script src="./js/models/notion.js"></script>
+  <script src="./js/services/callapi.js"></script>
+  <script src="./js/controllers/main.js"></script>
+</body>
+
+</html>
