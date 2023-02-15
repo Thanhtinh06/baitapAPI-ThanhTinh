@@ -74,7 +74,7 @@ function renderTable(data) {
         <td>${employee.soGioLamViecTrongThang}</td>
         <td>${rankingEmployee(employee.soGioLamViecTrongThang)}</td>
         <td>
-          <button type="button" class="btn btn-success"
+          <button type="button" class="btn btn-success editEm"
             onclick="editEmployee(${employee.id})">Edit</button>
           <button type="button" class="btn btn-danger" onclick="deleteEmployee(${employee.id})">Delete</button>
         </td>
@@ -99,27 +99,30 @@ function getListEmployee() {
 }
 
 // add new employee
-getEle("addEmployee").addEventListener("click", function () {
+function addNewEm(){
   let employee = getInformation();
   if (employee != null) {
     callApi
       .addEmployee(employee)
       .then(function () {
         getListEmployee();
+        resetForm();
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-});
+}
 
 // edit employee
 function editEmployee(id) {
   resetNoti();
   getEle("addEmployee").style.display = "none";
+  changeButton(".editEm",true);
+  
   let contentHTML = "";
-  let btnUpdate = `<button type="submit" class="btn btn-outline-success float-right updateEmployee" onclick="update(${id})">Update Employee</button>`;
-  let btnCancel = `<button type="submit" class="btn btn-outline-danger float-right cancelUpdate" onclick="cancel()" >Cancel</button>`;
+  let btnUpdate = `<button type="submit" class="btn btn-outline-success float-right" id="update${id}" onclick="update(${id})">Update Employee</button>`;
+  let btnCancel = `<button type="submit" class="btn btn-outline-danger float-right" id="cancel${id}" onclick="cancel(${id})" >Cancel</button>`;
   contentHTML = btnUpdate + btnCancel 
   getEle("formEmployee").innerHTML += contentHTML;
 
@@ -134,6 +137,7 @@ function editEmployee(id) {
     });
 }
 
+// when user clicked button edit show detail information employee
 function showDetailEmployee(employee) {
   getEle(ID_INPUT.code).value = employee.maNhanVien;
   getEle(ID_INPUT.name).value = employee.tenNhanVien;
@@ -143,6 +147,7 @@ function showDetailEmployee(employee) {
  
 }
 
+//update Employee
 function update(id) {
   let employeeUpdate = getInformation();
   if (employeeUpdate != null) {
@@ -151,7 +156,8 @@ function update(id) {
       .then(function () {
         getListEmployee();
         resetNoti();
-        resetformDefault();
+        resetformDefault(id);
+        changeButton(".editEm",false);
       })
       .catch(function (error) {
         console.log(error);
@@ -159,6 +165,8 @@ function update(id) {
   }
 }
 
+
+// delete employee
 function deleteEmployee(id){
   setDisplayEle("loader", DISPLAY.block);
   callApi
@@ -172,23 +180,36 @@ function deleteEmployee(id){
     });
 }
 
-function resetformDefault(){
-  getEle("addEmployee").style.display = "block";
+// return default form 
+function resetformDefault(id){
+  setDisplayEle("addEmployee", DISPLAY.block);
   resetForm();
-  document.getElementsByClassName("updateEmployee")[0].style.display = "none";
-  document.getElementsByClassName("cancelUpdate")[0].style.display = "none";
+  getEle(`cancel${id}`).remove();
+  getEle(`update${id}`).remove();
+  changeButton(".editEm",false);
 }
 
-function cancel(){
-  resetformDefault()
+
+// click button => reset form => cancel edit
+function cancel(id){
+  resetformDefault(id);
+}
+
+// change disable button when click edit => just one employee edit
+function changeButton(classButton,value){
+  const elements = document.querySelectorAll(classButton);
+  elements.forEach(function(element) {
+    element.disabled = value;
+  });
 }
 
 // reset form
 
 function resetForm() {
-  getEle("formEmployee").reset;
+  getEle("formEmployee").reset();
 }
 
+//reset noti 
 function resetNoti(){
   hiddenNoti(ID_NOTI.code);
   hiddenNoti(ID_NOTI.name);
@@ -200,28 +221,3 @@ function resetNoti(){
 //Call function to run
 getListEmployee();
 
-// function getListCode(){
-//   callApi.fetchListData()
-//     .then(function(result){
-//       result.data.forEach(function(employee){
-//         listCode.push(employee.maNhanVien);
-
-//       })
-//     })
-//     .catch( function(error){
-//       console.log(error);
-//     })
-// }
-
-// //getLocalStage list code employee
-
-// function getLocalStage(){
-//   const dataString = localStorage.getItem("ListCodeEmployee");
-//   listCode = JSON.parse(dataString) || [];
-
-// }
-
-// //setLocalStage list code employee
-// function setLocalStage(){
-//   localStorage.setItem("ListCodeEmployee",JSON.stringify(listCode))
-// }
