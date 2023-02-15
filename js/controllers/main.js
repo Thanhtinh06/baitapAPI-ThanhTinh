@@ -144,7 +144,7 @@ function showDetailEmployee(employee) {
   getEle(ID_INPUT.position).value = employee.chucVu;
   getEle(ID_INPUT.salary).value = employee.luongCoBan;
   getEle(ID_INPUT.hour).value = employee.soGioLamViecTrongThang;
- 
+
 }
 
 //update Employee

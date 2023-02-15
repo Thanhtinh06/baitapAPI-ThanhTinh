@@ -1,11 +1,14 @@
+//set display 
 function setDisplayEle(id, value) {
   return (getEle(id).style.display = value);
 }
 
+//hidden span noti input
 function hiddenNoti(id) {
   getEle(id).innerHTML = "";
   setDisplayEle(id,DISPLAY.none);
 }
+//open span noti input
 
 function openNoti(id, messenge) {
   getEle(id).innerHTML = messenge;
@@ -14,6 +17,7 @@ function openNoti(id, messenge) {
 
 
 class Validation {
+  //check hollow input
   checkHollow(value, idNoti) {
     if (value == "") {
       return false;
@@ -21,6 +25,7 @@ class Validation {
     hiddenNoti(idNoti);
     return true;
   }
+  //check length code
   checkLengthCode(code, idNoti) {
     if (
       code.length < CONDITON.length.min ||
@@ -31,7 +36,7 @@ class Validation {
     hiddenNoti(idNoti);
     return true;
   }
-
+  
   checkIsNumber(code, idNoti) {
     if (!code.match(CONDITON.codeValid)) {
       return false;

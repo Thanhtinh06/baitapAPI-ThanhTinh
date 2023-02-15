@@ -7,6 +7,4 @@ class Employee {
     this.luongCoBan = salary;
     this.soGioLamViecTrongThang = hours;
   }
-  
-  
 }
