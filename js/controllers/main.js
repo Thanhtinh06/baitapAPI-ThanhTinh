@@ -11,6 +11,7 @@ function getEle(id) {
 function caculateTotalSalary(salary, hour) {
   return parseFloat(salary) * parseFloat(hour);
 }
+var arrCode = [];
 
 //Raking of employees based on hours worked
 function rankingEmployee(hour) {
@@ -28,10 +29,15 @@ function rankingEmployee(hour) {
 }
 
 // get and check employee information from input => return Employee object
-function getInformation() {
+function getInformation(isNew=true) {
   let value = true;
-  let maNhanVien = getEle(ID_INPUT.code).value;
-  value &= validation.checkValidCode(maNhanVien, ID_NOTI.code);
+  let maNhanVien
+  if(!isNew){
+    maNhanVien = getEle(ID_INPUT.code).value;
+  }else{
+    maNhanVien = getEle(ID_INPUT.code).value;
+    value &= validation.checkValidCode(maNhanVien, ID_NOTI.code);
+  }
   let tenNhanVien = getEle(ID_INPUT.name).value;
   value &= validation.checkVaidName(tenNhanVien, ID_NOTI.name);
   let chucVu = getEle(ID_INPUT.position).value;
@@ -69,14 +75,14 @@ function renderTable(data) {
         <td>${employee.luongCoBan}</td>
         <td>${caculateTotalSalary(
           employee.luongCoBan,
-          employee.soGioLamViecTrongThang
+          employee.soGioLamTrongThang
         )}</td>
-        <td>${employee.soGioLamViecTrongThang}</td>
-        <td>${rankingEmployee(employee.soGioLamViecTrongThang)}</td>
+        <td>${employee.soGioLamTrongThang}</td>
+        <td>${rankingEmployee(employee.soGioLamTrongThang)}</td>
         <td>
           <button type="button" class="btn btn-success editEm"
-            onclick="editEmployee(${employee.id})">Edit</button>
-          <button type="button" class="btn btn-danger" onclick="deleteEmployee(${employee.id})">Delete</button>
+            onclick="editEmployee(${employee.maNhanVien})">Sửa</button>
+          <button type="button" class="btn btn-danger" onclick="deleteEmployee(${employee.maNhanVien})">Xóa</button>
         </td>
       </tr>
     `;
@@ -92,6 +98,13 @@ function getListEmployee() {
     .then(function (result) {
       renderTable(result.data);
       setDisplayEle("loader", DISPLAY.none);
+      let data = result.data;
+      let listCode = []
+      data.forEach(function(em){
+        listCode.push(em.maNhanVien)
+      });
+      arrCode = listCode;
+      console.log(arrCode);
     })
     .catch(function (error) {
       console.log(error);
@@ -115,19 +128,19 @@ function addNewEm(){
 }
 
 // edit employee
-function editEmployee(id) {
+function editEmployee(maNhanVien) {
   resetNoti();
   getEle("addEmployee").style.display = "none";
   changeButton(".editEm",true);
   
   let contentHTML = "";
-  let btnUpdate = `<button type="submit" class="btn btn-outline-success float-right" id="update${id}" onclick="update(${id})">Update Employee</button>`;
-  let btnCancel = `<button type="submit" class="btn btn-outline-danger float-right" id="cancel${id}" onclick="cancel(${id})" >Cancel</button>`;
+  let btnUpdate = `<button type="submit" class="btn btn-outline-success float-right" id="update${maNhanVien}" onclick="update(${maNhanVien})">Cập nhật</button>`;
+  let btnCancel = `<button type="submit" class="btn btn-outline-danger float-right" id="cancel${maNhanVien}" onclick="cancel(${maNhanVien})" >Hủy</button>`;
   contentHTML = btnUpdate + btnCancel 
   getEle("formEmployee").innerHTML += contentHTML;
 
   callApi
-    .getDetailEmployee(id)
+    .getDetailEmployee(maNhanVien)
     .then(function (result) {
       let detailEm = result.data;
       showDetailEmployee(detailEm);
@@ -140,23 +153,24 @@ function editEmployee(id) {
 // when user clicked button edit show detail information employee
 function showDetailEmployee(employee) {
   getEle(ID_INPUT.code).value = employee.maNhanVien;
+  getEle(ID_INPUT.code).disabled = true;
   getEle(ID_INPUT.name).value = employee.tenNhanVien;
   getEle(ID_INPUT.position).value = employee.chucVu;
   getEle(ID_INPUT.salary).value = employee.luongCoBan;
-  getEle(ID_INPUT.hour).value = employee.soGioLamViecTrongThang;
+  getEle(ID_INPUT.hour).value = employee.soGioLamTrongThang;
 
 }
 
 //update Employee
-function update(id) {
-  let employeeUpdate = getInformation();
+function update(maNhanVien) {
+  let employeeUpdate = getInformation(false);
   if (employeeUpdate != null) {
     callApi
-      .updateEmployee(employeeUpdate,id)
+      .updateEmployee(employeeUpdate)
       .then(function () {
         getListEmployee();
         resetNoti();
-        resetformDefault(id);
+        resetformDefault(maNhanVien);
         changeButton(".editEm",false);
       })
       .catch(function (error) {
@@ -167,10 +181,10 @@ function update(id) {
 
 
 // delete employee
-function deleteEmployee(id){
+function deleteEmployee(maNhanVien){
   setDisplayEle("loader", DISPLAY.block);
   callApi
-    .deleteEmployee(id)
+    .deleteEmployee(maNhanVien)
     .then(function () {
       getListEmployee()
       setDisplayEle("loader", DISPLAY.none);
@@ -181,18 +195,19 @@ function deleteEmployee(id){
 }
 
 // return default form 
-function resetformDefault(id){
+function resetformDefault(maNhanVien){
   setDisplayEle("addEmployee", DISPLAY.block);
   resetForm();
-  getEle(`cancel${id}`).remove();
-  getEle(`update${id}`).remove();
+  getEle(`cancel${maNhanVien}`).remove();
+  getEle(`update${maNhanVien}`).remove();
   changeButton(".editEm",false);
+  getEle(ID_INPUT.code).disabled = false;
 }
 
 
 // click button => reset form => cancel edit
-function cancel(id){
-  resetformDefault(id);
+function cancel(maNhanVien){
+  resetformDefault(maNhanVien);
 }
 
 // change disable button when click edit => just one employee edit

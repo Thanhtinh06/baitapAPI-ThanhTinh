@@ -36,7 +36,7 @@ class Validation {
     hiddenNoti(idNoti);
     return true;
   }
-  
+
   checkIsNumber(code, idNoti) {
     if (!code.match(CONDITON.codeValid)) {
       return false;
@@ -45,18 +45,29 @@ class Validation {
     return true;
   };
 
+ checkDuplicate(code,idNoti) {
+    let codeNum = parseInt(code)
+    if(arrCode.includes(codeNum)){
+      return false
+    }
+    return true
+  }
+
   checkValidCode(code,idNoti){
     let notHollow = this.checkHollow(code,idNoti);
     let isNumber = this.checkIsNumber(code,idNoti);
     let checkLength = this.checkLengthCode(code,idNoti);
+    let checkDuplicate = this.checkDuplicate(code,idNoti);
     if(notHollow) {
       if(isNumber == true && checkLength== false){
         openNoti(idNoti, NOTI.notValid.codeLength);
-      } else if (isNumber == false && checkLength== true){
+      } else if (isNumber == false && checkLength == true){
         openNoti(idNoti, NOTI.notValid.codeNumber);
       } else if (isNumber == false && checkLength == false){
         openNoti(idNoti,NOTI.notValid.twoCondition)
-      }else {
+      } else if (checkDuplicate==false){
+        openNoti(idNoti, NOTI.notValid.codeExits)
+      } else {
         hiddenNoti(idNoti);
         return true;
         }

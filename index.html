@@ -16,54 +16,54 @@
 
 <body>
   <section>
-    <div class="p-3 mb-2 bg-dark text-white text-center">MANAGE EMPLOYEE</div>
+    <div class="p-3 mb-2 bg-dark text-white text-center">QUẢN LÝ NHÂN VIÊN</div>
     <form class="mt-5 container" id="formEmployee">
       <div class="form-group">
-        <label for="inputCode"> <span class="required">(*)</span> Code Employee</label>
+        <label for="inputCode"> <span class="required">(*)</span>Mã nhân viên</label>
         <input type="text" class="form-control" id="inputCode" placeholder="123..">
       </div>
       <span id="notiCode"></span>
       <div class="form-row">
         <div class="form-group col-md-12">
-          <label for="inputName"><span class="required">(*)</span> Name Employee</label>
+          <label for="inputName"><span class="required">(*)</span>Tên nhân viên</label>
           <input type="text" class="form-control" id="inputName">
         </div>
         <span id="notiName"></span>
         <div class="form-group col-md-12">
-          <label for="inputPosition"><span class="required">(*)</span> Position</label>
+          <label for="inputPosition"><span class="required">(*)</span>Vị trí</label>
           <select id="inputPosition" class="form-control">
-            <option selected>Choose Position</option>
-            <option>Employee</option>
-            <option>Manager</option>
-            <option>Director</option>
+            <option selected>Chọn vị trí</option>
+            <option>Nhân viên</option>
+            <option>Quản Lý</option>
+            <option>Giám đốc</option>
           </select>
         </div>
         <span id="notiPosition"></span>
         <div class="form-group col-md-12">
-          <label for="inputSalary"><span class="required">(*)</span> Basic salary</label>
+          <label for="inputSalary"><span class="required">(*)</span>Lương cơ bản</label>
           <input type="text" class="form-control" id="inputSalary">
         </div>
         <span id="notiSalary"></span>
         <div class="form-group col-md-12">
-          <label for="inputHours"><span class="required">(*)</span> Working Hours</label>
+          <label for="inputHours"><span class="required">(*)</span>Số giờ làm việc/tháng</label>
           <input type="text" class="form-control" id="inputHours">
         </div>
         <span id="notiHour"></span>
       </div>
 
-      <button type="submit" class="btn btn-outline-success float-right" id="addEmployee" onclick="addNewEm()">Add Employee</button>
+      <button type="submit" class="btn btn-outline-success float-right" id="addEmployee" onclick="addNewEm()">Thêm nhân viên</button>
     </form>
     <table id="listEmployee" class="container">
       <p class="notiTable"></p>
       <thead>
         <tr class="bg-primary text-white text-center">
-          <th>Code Employee</th>
-          <th>Name Employee</th>
-          <th>Position</th>
-          <th>Basic Salary</th>
-          <th>Total Salary</th>
-          <th>Working Hours/Month</th>
-          <th>Rank</th>
+          <th>Mã nhân viên</th>
+          <th>Tên nhân viên</th>
+          <th>Vị trí</th>
+          <th>Lương cơ bản</th>
+          <th>Tổng lương</th>
+          <th>Số giờ làm việc/tháng</th>
+          <th>Xếp hạng</th>
           <th></th>
         </tr>
       </thead>

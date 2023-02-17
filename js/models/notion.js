@@ -1,14 +1,14 @@
 const NOTI = {
-  inputHollow : "Please enter content",
+  inputHollow : "Vui lòng nhập nội dung",
   notValid : {
-    codeExist: "The code had existed",
-    codeLength: "The length of code from 4 to 6 digits",
-    codeNumber: "The code had digits",
-    nameWrong: "The name must be characters",
-    rangeSalary: "The salary from 1.000.000 to 20.000.000",
-    rangeHours: "The hours from 50 to 100 hours",
-    twoCondition : "The code must be digits and the length from 4 to 6 digits",
-    position: "Please select the position",
+    codeExits : "Mã nhân viên đã tồn tại",
+    codeLength: "Độ dài của mã từ 4-6 kí tự",
+    codeNumber: "Mã nhân viên phải là số",
+    nameWrong: "Tên phải là kí từ",
+    rangeSalary: "Lương cơ bản từ 1.000.000 đến 20.000.000",
+    rangeHours: "Giờ làm việc từ 50 đến 100 giờ",
+    twoCondition : "Mã phải là số và có độ dài 4-6 kí tự",
+    position: "Vui lòng chọn vị trí",
   }
 }
 
@@ -53,7 +53,7 @@ const DISPLAY = {
 }
 
 const RANKING = {
-  exellent : "Exelent employee",
-  good : "Good employee",
-  average : "Average employee",
+  exellent : "Xuất sắc",
+  good : "Giỏi",
+  average : "Trung Bình",
 }

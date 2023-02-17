@@ -8,36 +8,36 @@ function CallApi() {
                   - Reject (that bai)
     */
     return axios({
-      url: "https://63df6ffb59bccf35dab3447e.mockapi.io/api/employee",
+      url: "http://svcy.myclass.vn/api/QuanLyNhanVienApi/LayDanhSachNhanVien",
       method: "GET",
     });
   };
-  this.getDetailEmployee = function(id) {
+  this.getDetailEmployee = function(maNhanVien) {
     return axios({
-        url: `https://63df6ffb59bccf35dab3447e.mockapi.io/api/employee/${id}`,
+        url: `http://svcy.myclass.vn/api/QuanLyNhanVienApi/LayThongTinNhanVien?maNhanVien=${maNhanVien}`,
         method: "GET"
     });
   };
 
   this.addEmployee = function(employee) {
     return axios({
-        url: "https://63df6ffb59bccf35dab3447e.mockapi.io/api/employee",
+        url: "http://svcy.myclass.vn/api/QuanLyNhanVienApi/ThemNhanVien",
         method: "POST",
         data:employee,
     });
   };
 
-  this.updateEmployee = function(employee,id) {
+  this.updateEmployee = function(employee) {
     return axios({
-        url: `https://63df6ffb59bccf35dab3447e.mockapi.io/api/employee/${id}`,
+        url: `http://svcy.myclass.vn/api/QuanLyNhanVienApi/CapNhatThongTinNhanVien?maNhanVien=${employee.maNhanVien}`,
         method: "PUT",
         data: employee,
     });
   };
 
-  this.deleteEmployee = function(id) {
+  this.deleteEmployee = function(maNhanVien) {
     return axios({
-        url:`https://63df6ffb59bccf35dab3447e.mockapi.io/api/employee/${id}`,
+        url:`http://svcy.myclass.vn/api/QuanLyNhanVienApi/XoaNhanVien?maSinhVien=${maNhanVien}`,
         method: "DELETE",
     });
   };
